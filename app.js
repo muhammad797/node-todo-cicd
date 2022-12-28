@@ -5,11 +5,12 @@ const express = require('express'),
     // Mitigate XSS using sanitizer
     sanitizer = require('sanitizer'),
     app = express(),
-    port = 8000
+    port = 8000;
 
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 // https: //github.com/expressjs/method-override#custom-logic
 app.use(methodOverride(function (req, res) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -19,7 +20,6 @@ app.use(methodOverride(function (req, res) {
         return method
     }
 }));
-
 
 let todolist = [];
 
@@ -84,5 +84,6 @@ app.get('/todo', function (req, res) {
         // Logging to console
         console.log(`Todolist running on http://0.0.0.0:${port}`)
     });
+
 // Export app
 module.exports = app;
